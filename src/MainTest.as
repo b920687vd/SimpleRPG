@@ -1,5 +1,6 @@
 package
 {
+	import GameModel.ActionBase;
 	
 	/**
 	 * ...
@@ -13,7 +14,7 @@ package
 			//...
 		}
 		
-		public function Test(){
+		public function Test():void{
 			trace("Main Test Start")
 			testActionBase();
 			testActionLib();
@@ -21,10 +22,10 @@ package
 			testItemLib();
 		}
 		
-		public function testActionBase()
+		public function testActionBase():void
 		{
 			Main.One.debug("Test Action Base")
-			var testAction:ActionBase = new ActionBase(
+			var testAction:GameModel.ActionBase = new GameModel.ActionBase(
 				{
 					name: "使用",
 					action: function(content = null)
@@ -40,7 +41,7 @@ package
 			);
 		}
 		
-		public function testActionLib()
+		public function testActionLib():void
 		{
 			//...
 			Main.One.debug("Test Action Lib")
@@ -48,12 +49,12 @@ package
 			testAction.action.apply();
 		}
 		
-		public function testItemBase()
+		public function testItemBase():void
 		{
 			//...
 		}
 		
-		public function testItemLib(){
+		public function testItemLib():void{
 			//...
 		}
 	
