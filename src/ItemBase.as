@@ -15,6 +15,7 @@ package
 		
 		public var name:String;
 		public var icon:String;
+		public var model:Object;
 		public var actionList:Vector.<ActionBase>
 		public function clone():ItemBase{
 			var cloneItem = new ItemBase();
