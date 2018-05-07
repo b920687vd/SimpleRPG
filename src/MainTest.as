@@ -1,6 +1,9 @@
 package
 {
 	import GameModel.ActionBase;
+	import Lib.ActionLib;
+	import Painter.PainterBrush;
+	import flash.events.Event;
 	
 	/**
 	 * ...
@@ -20,17 +23,18 @@ package
 			testActionLib();
 			testItemBase();
 			testItemLib();
+			testRoomBase();
 		}
 		
 		public function testActionBase():void
 		{
-			Main.One.debug("Test Action Base")
+			Main.Instance.debug("Test Action Base")
 			var testAction:GameModel.ActionBase = new GameModel.ActionBase(
 				{
 					name: "使用",
 					action: function(content = null)
 					{
-						Main.One.debug(content.user.name+"使用了道具:"+content.useItem.name);
+						Main.Instance.debug(content.user.name+"使用了道具:"+content.useItem.name);
 					}
 				}
 			)
@@ -44,8 +48,8 @@ package
 		public function testActionLib():void
 		{
 			//...
-			Main.One.debug("Test Action Lib")
-			var testAction = ActionLib.GetActionById(0);
+			Main.Instance.debug("Test Action Lib")
+			var testAction = Lib.ActionLib.GetActionById(0);
 			testAction.action.apply();
 		}
 		
@@ -57,7 +61,28 @@ package
 		public function testItemLib():void{
 			//...
 		}
+		
+		public function testRoomBase():void{
+			//...
+			PainterBrush.LoadBrush("E:/FlashProject/SimpleRPG-master/bin/pic/stageOne", testActionLoaded);
+		}
+		
+		public function testActionLoaded(e:Event):void{
+			PainterBrush.LoadBrush("E:/FlashProject/SimpleRPG-master/bin/pic/action", testBrushLoaded);
+		}
+		public function testBrushLoaded(e:Event):void{
+			var stageRoom:StageBoard = new StageBoard();
+			Main.Instance.addChild(stageRoom);
+			stageRoom.drawEnterRoom(new GameModel.RoomBase({name:"asd", bg:"bg1", roomObjList:[
+			{brush:"button-action-money"},
+			{brush:"button-action-attack"},
+			{brush:"button-action-info"},
+			{brush:"button-action-force"},
+			{brush:"button-action-level"},
+			{brush:"button-action-work"}]}))
+		}
 	
+		
 	}
 
 }

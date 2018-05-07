@@ -1,5 +1,7 @@
 package
 {
+	import Lib.ActionLib;
+	import Lib.ItemLib;
 	import flash.display.Sprite;
 	import flash.text.TextField;
 	
@@ -12,10 +14,10 @@ package
 		
 		public function Main()
 		{
-			if (!Main.One)
-				Main.One = this;
-			ActionLib.ActionModelInit();
-			ItemLib.ItemModelInit();
+			if (!Main.Instance)
+				Main.Instance = this;
+			Lib.ActionLib.ActionModelInit();
+			Lib.ItemLib.ItemModelInit();
 			debugInit();
 			mainTest();
 		}
@@ -38,7 +40,7 @@ package
 			mainTest.Test();
 		}
 		
-		public static var One:Main;
+		public static var Instance:Main;
 		
 		/**
 		 * 输出测试信息

@@ -1,6 +1,7 @@
-package 
+package Lib 
 {
 	import GameModel.ItemBase;
+	import Lib.ActionLib;
 	/**
 	 * ...
 	 * @author WhiteWings
@@ -18,7 +19,7 @@ package
 			ItemLib.ItemModel = new Vector.<GameModel.ItemBase>();
 			ItemLib.ItemModel[0] = new GameModel.ItemBase({
 				name:"符文蛋",
-				actionList:[ActionLib.GetActionById(0)]
+				actionList:[Lib.ActionLib.GetActionById(0)]
 			})
 		}
 		

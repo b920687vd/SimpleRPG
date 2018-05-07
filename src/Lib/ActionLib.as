@@ -1,4 +1,4 @@
-package 
+package Lib 
 {
 	import GameModel.ActionBase;
 	/**
@@ -21,9 +21,9 @@ package
 				action:function(content:Object = null):void
 					{
 						if(content)
-						Main.One.debug(content.user.name+"使用了道具:" + content.useItem.name);
+						Main.Instance.debug(content.user.name+"使用了道具:" + content.useItem.name);
 						else
-						Main.One.debug("有人使用了道具")
+						Main.Instance.debug("有人使用了道具")
 					}
 			})
 		}
