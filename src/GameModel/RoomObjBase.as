@@ -16,7 +16,8 @@ package GameModel
 		}
 		
 		public var brush:String;
-		
+		public var model:Object;
+		public var actionList:Vector.<GameModel.ActionBase>
 	}
 
 }

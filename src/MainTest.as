@@ -32,7 +32,7 @@ package
 			var testAction:GameModel.ActionBase = new GameModel.ActionBase(
 				{
 					name: "使用",
-					action: function(content:Object = null)
+					action: function(content:Object = null):void
 					{
 						Main.Instance.debug(content.user.name+"使用了道具:"+content.useItem.name);
 					}
@@ -49,7 +49,7 @@ package
 		{
 			//...
 			Main.Instance.debug("Test Action Lib")
-			var testAction = Lib.ActionLib.GetActionById(0);
+			var testAction:ActionBase = Lib.ActionLib.GetActionById(0);
 			testAction.action.apply();
 		}
 		

@@ -35,28 +35,45 @@ package Painter
 		 */
 		public static function LoadBrush(path:String,callback:Function = null,extraJson:String = null):void
 		{
-			var brush_pic_loader:Loader = new Loader();
-			var filePath:File = File.applicationDirectory;
-			Main.Instance.debug(filePath.url);
-			var picPath:File = filePath.resolvePath(extraJson?path:(path+".png"))
-			var brush_pic_request:URLRequest = new URLRequest(picPath.nativePath);
-			brush_pic_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, brushPicLoaded);
-			brushLoaderDict[brush_pic_loader] = path;
-			Main.Instance.debug("Load Brush " + brush_pic_request.url);
-			brush_pic_loader.load(brush_pic_request);
-			
-			var brush_config_loader:URLLoader = new URLLoader();
-			var jsonPath:File = filePath.resolvePath(extraJson?extraJson:(path+".json"))
-			var brush_config_request:URLRequest = new URLRequest(jsonPath.nativePath);
-			brush_config_loader.addEventListener(Event.COMPLETE, brushConfigLoaded);
-			brushLoaderDict[brush_config_loader] = path;
-			Main.Instance.debug("Load Brush " + brush_config_request.url);
-			brush_config_loader.load(brush_config_request);
+			loadBrushFile(extraJson?path:(path+".png"),"pic")
+			loadBrushFile(extraJson?extraJson:(path+".json"),"json")
 			
 			LoadedCallbackDict[path] = callback;
 			brushLoadedList[path] = new Array();
 		}
 		
+		/**
+		 * 加载单个笔刷文件
+		 * todo:可能会扩充或转移至文件管理功能模块
+		 * @param	path
+		 * @param	type
+		 */
+		private static function loadBrushFile(path:String, type:String ):void{
+			var filePath:File = File.applicationDirectory;
+			Main.Instance.debug(filePath.url);
+			var picPath:File = filePath.resolvePath(path)
+			var brush_request:URLRequest = new URLRequest(picPath.nativePath);
+			
+			var brush_loader:*;
+			if (type == "pic" || type == "music")
+			{
+				brush_loader = new Loader();
+				brush_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, brushPicLoaded);
+			}else if (type == "json" || type == "text"){
+				brush_loader = new URLLoader();
+				brush_loader.addEventListener(Event.COMPLETE, brushConfigLoaded);
+			}
+			brush_loader.load(brush_request);
+			brushLoaderDict[brush_loader] = path;
+		}
+		
+		/**
+		 * 获取指定源，类型和状态的笔刷集
+		 * @param	source
+		 * @param	type
+		 * @param	status
+		 * @return
+		 */
 		public static function GetBrush(source:String,type:String = null,status:String = null):Vector.<BitmapData>
 		{
 			//...
@@ -65,6 +82,11 @@ package Painter
 				return null;
 			return askedBrush
 		}
+		
+		/**
+		 * 笔刷图片加载完成后的处理函数
+		 * @param	e
+		 */
 		private static function brushPicLoaded(e:Event):void
 		{
 			var loader:Loader = e.target.loader as Loader;
@@ -83,6 +105,10 @@ package Painter
 				LoadedCallbackDict[path](e);
 		}
 		
+		/**
+		 * 笔刷设置加载完成后的处理函数
+		 * @param	e
+		 */
 		private static function brushConfigLoaded(e:Event):void
 		{
 			var loader:URLLoader = e.target as URLLoader;
@@ -100,6 +126,11 @@ package Painter
 				LoadedCallbackDict[path](e);
 		}
 		
+		/**
+		 * 切分笔刷整图，收纳入笔刷列表
+		 * @param	bmdata
+		 * @param	config_data
+		 */
 		private static function brushData(bmdata:BitmapData, config_data:Object):void
 		{
 			//Main.instance.addChild(new Bitmap(bmdata));

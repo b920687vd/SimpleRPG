@@ -43,7 +43,7 @@ package
 			return objBtn;
 		}
 		
-		public function drawEnterRoom(room:RoomBase){
+		public function drawEnterRoom(room:RoomBase):void{
 			//...
 			this.stageBg.bitmapData = PainterBrush.GetBrush("stageBoard","0","0")[0];
 			this.roomBg.bitmapData =  PainterBrush.GetBrush(room.bg, "0", "0")[0];
