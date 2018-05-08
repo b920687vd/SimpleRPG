@@ -1,0 +1,25 @@
+{
+    "list":[
+        {
+            "source":"stageBoard",
+            "type":0,
+            "status":0,
+            "box_width":1024,
+            "box_height":576,
+            "begin_x":0,
+            "begin_y":0,
+            "num":1
+        },
+        {
+            "source":"bg1",
+            "type":0,
+            "status":0,
+            "box_width":1024,
+            "box_height":576,
+            "begin_x":0,
+            "begin_y":576,
+            "num":1
+        }
+
+    ]
+}

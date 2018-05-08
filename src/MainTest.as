@@ -73,7 +73,7 @@ package
 		public function testBrushLoaded(e:Event):void{
 			var stageRoom:StageBoard = new StageBoard();
 			Main.Instance.addChild(stageRoom);
-			stageRoom.drawEnterRoom(new GameModel.RoomBase({name:"asd", bg:"bg1", roomObjList:[
+			stageRoom.drawEnterRoom(new GameModel.RoomBase({name:"废弃城堡 - 岩石大厅", bg:"bg1", roomObjList:[
 			{brush:"button-action-money"},
 			{brush:"button-action-attack"},
 			{brush:"button-action-info"},

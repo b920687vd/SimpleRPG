@@ -64,7 +64,7 @@ package Painter
 				brush_loader.addEventListener(Event.COMPLETE, brushConfigLoaded);
 			}
 			brush_loader.load(brush_request);
-			brushLoaderDict[brush_loader] = path;
+			brushLoaderDict[brush_loader] = path.split(".")[0];
 		}
 		
 		/**
