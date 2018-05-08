@@ -32,7 +32,7 @@ package
 			var testAction:GameModel.ActionBase = new GameModel.ActionBase(
 				{
 					name: "使用",
-					action: function(content = null)
+					action: function(content:Object = null)
 					{
 						Main.Instance.debug(content.user.name+"使用了道具:"+content.useItem.name);
 					}
@@ -64,11 +64,11 @@ package
 		
 		public function testRoomBase():void{
 			//...
-			PainterBrush.LoadBrush("E:/FlashProject/SimpleRPG-master/bin/pic/stageOne", testActionLoaded);
+			PainterBrush.LoadBrush("pic/stageOne", testActionLoaded);
 		}
 		
 		public function testActionLoaded(e:Event):void{
-			PainterBrush.LoadBrush("E:/FlashProject/SimpleRPG-master/bin/pic/action", testBrushLoaded);
+			PainterBrush.LoadBrush("pic/action", testBrushLoaded);
 		}
 		public function testBrushLoaded(e:Event):void{
 			var stageRoom:StageBoard = new StageBoard();

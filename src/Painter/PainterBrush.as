@@ -4,6 +4,7 @@ package Painter
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Loader;
+	import flash.filesystem.File;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.net.URLLoader;
@@ -35,14 +36,18 @@ package Painter
 		public static function LoadBrush(path:String,callback:Function = null,extraJson:String = null):void
 		{
 			var brush_pic_loader:Loader = new Loader();
-			var brush_pic_request:URLRequest = new URLRequest(extraJson?path:(path+".png"));
+			var filePath:File = File.applicationDirectory;
+			Main.Instance.debug(filePath.url);
+			var picPath:File = filePath.resolvePath(extraJson?path:(path+".png"))
+			var brush_pic_request:URLRequest = new URLRequest(picPath.nativePath);
 			brush_pic_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, brushPicLoaded);
 			brushLoaderDict[brush_pic_loader] = path;
 			Main.Instance.debug("Load Brush " + brush_pic_request.url);
 			brush_pic_loader.load(brush_pic_request);
 			
 			var brush_config_loader:URLLoader = new URLLoader();
-			var brush_config_request:URLRequest = new URLRequest(extraJson?extraJson:(path+".json"));
+			var jsonPath:File = filePath.resolvePath(extraJson?extraJson:(path+".json"))
+			var brush_config_request:URLRequest = new URLRequest(jsonPath.nativePath);
 			brush_config_loader.addEventListener(Event.COMPLETE, brushConfigLoaded);
 			brushLoaderDict[brush_config_loader] = path;
 			Main.Instance.debug("Load Brush " + brush_config_request.url);
