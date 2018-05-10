@@ -1,11 +1,12 @@
 package
 {
 	import GameModel.ActionBase;
-	import GameModel.ActionCenter;
+	import GameModel.LogicCenter;
 	import GameModel.ActionChoice;
-	import GameModel.ActionEvent;
+	import GameModel.Event.ActionEvent;
+	import GameModel.Event.ObjEvent;
 	import GameModel.RoomBase;
-	import GameModel.RoomObjBase;
+	import GameModel.ObjRoom;
 	import Lib.UIFormat;
 	import Painter.PainterBrush;
 	import flash.display.Bitmap;
@@ -89,14 +90,14 @@ package
 		public var numPeopleField:TextField;
 		
 		public var objBtnView:Sprite;
-		public var objList:Vector.<GameModel.RoomObjBase>;
+		public var objList:Vector.<GameModel.ObjRoom>;
 		
 		public var menuView:Sprite;
 		public var menuLineList:Vector.<SimpleButton>
 		
 		public var objBtnList:Vector.<SimpleButton>;
 		
-		public function drawObjBtn(obj:RoomObjBase):SimpleButton
+		public function drawObjBtn(obj:ObjRoom):SimpleButton
 		{
 			var objBrush:Vector.<BitmapData> = PainterBrush.GetBrush(obj.brush, "0", "0");
 			var objBtn:SimpleButton = new SimpleButton(new Bitmap(objBrush[2]),new Bitmap(objBrush[1]),new Bitmap(objBrush[3]),new Bitmap(objBrush[3]));
@@ -118,33 +119,40 @@ package
 				drawObjBtnList(room.roomObjList);
 		}
 		
-		public function drawObjBtnList(objList:Vector.<GameModel.RoomObjBase>):void{
+		public function drawObjBtnList(objList:Vector.<GameModel.ObjRoom>):void{
 			this.objList = objList;
 			for (var i:int = 0; i < objList.length; i++ ){
 				this.objBtnList.push(drawObjBtn(objList[i]))
 				this.objBtnView.addChild(this.objBtnList[i]);
 				this.objBtnList[i].x = 130 + 100 * i;
 				this.objBtnList[i].y = 330;
-				this.objBtnList[i].addEventListener(MouseEvent.CLICK, showObjBtnMenu);
+				this.objBtnList[i].addEventListener(MouseEvent.CLICK, selectObjBtn);
 			}
 		}
 		
-		public function showObjBtnMenu(e:MouseEvent){
+		public function selectObjBtn(e:MouseEvent){
 			var btn:SimpleButton = e.currentTarget as SimpleButton;
-			var obj:RoomObjBase = this.objList[this.objBtnList.indexOf(btn)];
-			showMenuByList(obj.actionList, new Point(e.stageX, e.stageY));
-			ActionCenter.Instance.CenterCube.addEventListener(ActionEvent.ACTION_START, hideObjBtnMenu);
+			var objEvent:ObjEvent = new ObjEvent(ObjEvent.OBJ_SELECTED);
+			objEvent.data = this.objList[this.objBtnList.indexOf(btn)]
+			LogicCenter.Instance.cube.dispatchEvent(objEvent);
+			showObjBtnMenu(btn)
 		}
 		
-		public function hideObjBtnMenu(e:ActionEventwww){
+		public function showObjBtnMenu(btn:SimpleButton):void{
+			var obj:ObjRoom = this.objList[this.objBtnList.indexOf(btn)];
+			showMenuByList(obj.actionList, new Point(btn.x+btn.width/2, btn.y+btn.height/2));
+			LogicCenter.Instance.cube.addEventListener(ActionEvent.ACTION_START, hideObjBtnMenu);
+		}
+		
+		public function hideObjBtnMenu(e:ActionEvent):void{
 			this.removeChild(this.menuView);
-			ActionCenter.Instance.CenterCube.removeEventListener(ActionEvent.ACTION_START, hideObjBtnMenu);
+			LogicCenter.Instance.cube.removeEventListener(ActionEvent.ACTION_START, hideObjBtnMenu);
 		}
 		
-		public function showMenuByList(actionList:Vector.<ActionBase>,point:Point){
+		public function showMenuByList(actionList:Vector.<ActionBase>,point:Point):void{
 			if (!actionList)
 				return;
-			for (var i = 0; i < actionList.length; i++ ){
+			for (var i:int = 0; i < actionList.length; i++ ){
 				var newLine:SimpleButton = drawMenuLine(actionList[i]);
 				this.menuLineList.push(newLine)
 				this.menuView.addChild(newLine);

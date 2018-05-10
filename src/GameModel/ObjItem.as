@@ -5,21 +5,16 @@ package GameModel
 	 * ...
 	 * @author WhiteWings
 	 */
-	public class ItemBase 
+	public class ObjItem extends ObjBase
 	{
 		
-		public function ItemBase(itemData:Object = null)
+		public function ObjItem(itemData:Object = null)
 		{
-			this.name = itemData.name;
-			
+			super(itemData)
 		}
 		
-		public var name:String;
-		public var brush:String;
-		public var model:Object;
-		public var actionList:Vector.<GameModel.ActionBase>
-		public function clone():ItemBase{
-			var cloneItem:ItemBase = new ItemBase();
+		public function clone():ObjItem{
+			var cloneItem:ObjItem = new ObjItem();
 			cloneItem.name = this.name;
 			cloneItem.actionList = new Vector.<GameModel.ActionBase>();
 			for (var i:int = 0; i < this.actionList.length; i++ ){

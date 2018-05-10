@@ -75,7 +75,7 @@ package
 			var stageRoom:StageBoard = new StageBoard();
 			Main.Instance.addChild(stageRoom);
 			stageRoom.drawEnterRoom(new GameModel.RoomBase({name:"废弃城堡 - 岩石大厅", bg:"bg1", roomObjList:[
-			{brush:"button-action-money",actionList:[{name: "使用",
+			{name:"钱袋",brush:"button-action-money",actionList:[{name: "使用",
 					action: function(content:Object = null):void
 					{
 						Main.Instance.debug(content.user.name+"使用了道具:"+content.useItem.name);

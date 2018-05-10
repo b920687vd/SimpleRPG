@@ -1,4 +1,4 @@
-package GameModel 
+package GameModel.Event 
 {
 	import flash.events.Event;
 	

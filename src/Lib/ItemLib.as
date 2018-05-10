@@ -1,6 +1,6 @@
 package Lib 
 {
-	import GameModel.ItemBase;
+	import GameModel.ObjItem;
 	import Lib.ActionLib;
 	/**
 	 * ...
@@ -14,20 +14,20 @@ package Lib
 			
 		}
 		
-		public static var ItemModel:Vector.<GameModel.ItemBase>;
+		public static var ItemModel:Vector.<GameModel.ObjItem>;
 		public static function ItemModelInit():void{
-			ItemLib.ItemModel = new Vector.<GameModel.ItemBase>();
-			ItemLib.ItemModel[0] = new GameModel.ItemBase({
+			ItemLib.ItemModel = new Vector.<GameModel.ObjItem>();
+			ItemLib.ItemModel[0] = new GameModel.ObjItem({
 				name:"符文蛋",
 				actionList:[Lib.ActionLib.GetActionById(0)]
 			})
 		}
 		
-		public static function CreateItemById(index:uint):GameModel.ItemBase{
+		public static function CreateItemById(index:uint):GameModel.ObjItem{
 			return ItemLib.ItemModel[index].clone();
 		}
 		
-		public static function CreateItemByName(name:String):GameModel.ItemBase{
+		public static function CreateItemByName(name:String):GameModel.ObjItem{
 			for (var i:int = 0; i < ItemLib.ItemModel.length; i++ )
 			{
 				if (ItemLib.ItemModel[i].name == name)

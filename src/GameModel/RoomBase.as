@@ -13,15 +13,15 @@ package GameModel
 			this.name = data.name;
 			this.bg = data.bg;
 			if (data.roomObjList){
-				this.roomObjList = new Vector.<GameModel.RoomObjBase>();
+				this.roomObjList = new Vector.<GameModel.ObjRoom>();
 				for (var i:int = 0; i < data.roomObjList.length; i++){
-					this.roomObjList.push(new RoomObjBase(data.roomObjList[i]))
+					this.roomObjList.push(new ObjRoom(data.roomObjList[i]))
 				}
 			}
 		}
 		public var name:String;
 		public var bg:String;
-		public var roomObjList:Vector.<RoomObjBase>;
+		public var roomObjList:Vector.<ObjRoom>;
 	}
 
 }
