@@ -1,0 +1,14 @@
+{
+    "list":[
+        {
+            "source":"menuLine",
+            "type":0,
+            "status":0,
+            "box_width":100,
+            "box_height":30,
+            "begin_x":0,
+            "begin_y":0,
+            "num":1
+        }
+    ]
+}

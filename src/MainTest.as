@@ -64,6 +64,7 @@ package
 		
 		public function testRoomBase():void{
 			//...
+			PainterBrush.LoadBrush("pic/systemColl")
 			PainterBrush.LoadBrush("pic/stageOne", testActionLoaded);
 		}
 		
@@ -74,7 +75,21 @@ package
 			var stageRoom:StageBoard = new StageBoard();
 			Main.Instance.addChild(stageRoom);
 			stageRoom.drawEnterRoom(new GameModel.RoomBase({name:"废弃城堡 - 岩石大厅", bg:"bg1", roomObjList:[
-			{brush:"button-action-money"},
+			{brush:"button-action-money",actionList:[{name: "使用",
+					action: function(content:Object = null):void
+					{
+						Main.Instance.debug(content.user.name+"使用了道具:"+content.useItem.name);
+					}},
+					{name: "吃掉",
+					action: function(content:Object = null):void
+					{
+						Main.Instance.debug(content.user.name+"使用了道具:"+content.useItem.name);
+					}},
+					{name: "投掷",
+					action: function(content:Object = null):void
+					{
+						Main.Instance.debug(content.user.name+"使用了道具:"+content.useItem.name);
+					}}]},
 			{brush:"button-action-attack"},
 			{brush:"button-action-info"},
 			{brush:"button-action-force"},
