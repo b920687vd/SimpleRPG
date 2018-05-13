@@ -10,8 +10,10 @@ package GameModel
 		public function RoomBase(data:Object = null) 
 		{
 			//...
-			this.name = data.name;
-			this.bg = data.bg;
+			if (!data)
+				return;
+			this.name = data.name?data.name:"";
+			this.bg = data.bg?data.bg:"";
 			if (data.roomObjList){
 				this.roomObjList = new Vector.<GameModel.ObjRoom>();
 				for (var i:int = 0; i < data.roomObjList.length; i++){

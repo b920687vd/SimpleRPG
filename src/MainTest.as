@@ -1,6 +1,8 @@
 package
 {
 	import GameModel.ActionBase;
+	import GameModel.MapBase;
+	import GameModel.RoomBase;
 	import Lib.ActionLib;
 	import Painter.PainterBrush;
 	import flash.events.Event;
@@ -24,6 +26,7 @@ package
 			testItemBase();
 			testItemLib();
 			testRoomBase();
+			testMapBase();
 		}
 		
 		public function testActionBase():void
@@ -65,13 +68,14 @@ package
 		public function testRoomBase():void{
 			//...
 			PainterBrush.LoadBrush("pic/systemColl")
-			PainterBrush.LoadBrush("pic/stageOne", testActionLoaded);
+			PainterBrush.LoadBrush("pic/stageOne", _testActionLoaded);
 		}
 		
-		public function testActionLoaded(e:Event):void{
-			PainterBrush.LoadBrush("pic/action", testBrushLoaded);
+		private function _testActionLoaded(e:Event):void{
+			PainterBrush.LoadBrush("pic/action", _testBrushLoaded);
 		}
-		public function testBrushLoaded(e:Event):void{
+		
+		private function _testBrushLoaded(e:Event):void{
 			var stageRoom:StageBoard = new StageBoard();
 			Main.Instance.addChild(stageRoom);
 			stageRoom.drawEnterRoom(new GameModel.RoomBase({name:"废弃城堡 - 岩石大厅", bg:"bg1", roomObjList:[
@@ -95,6 +99,30 @@ package
 			{brush:"button-action-force"},
 			{brush:"button-action-level"},
 			{brush:"button-action-work"}]}))
+		}
+		
+		public function testMapBase():void{
+			var mapA:MapBase = new MapBase();
+			mapA.addRoom(new RoomBase());
+			mapA.addRoom(new RoomBase());
+			mapA.addRoom(new RoomBase());
+			mapA.addRoom(new RoomBase());
+			var mapB:MapBase = new MapBase();
+			mapB.addRoom(new RoomBase());
+			mapB.addRoom(new RoomBase());
+			
+			mapA.link(0, 1);
+			mapA.link(0, 3);
+			
+			mapB.link(0, 1);
+			
+			trace(mapA.adjList.join("||"));
+			trace(mapB.adjList.join("||"));
+			
+			var mapC:MapBase = MapBase.linkMap(mapA, mapB, 1, 1);
+			
+			trace(mapC.roomList);
+			trace(mapC.adjList.join("||"));
 		}
 	
 		

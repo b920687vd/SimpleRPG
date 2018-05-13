@@ -9,9 +9,15 @@ package GameModel
 		
 		public function ActionBase(actionData:Object = null) 
 		{
-			if (actionData){
-				this.name = actionData.name;
-				this.action = actionData.action;
+			for (var i:String in actionData)
+			{
+				if (i == "")
+				{
+					//...
+				}
+				{
+					this[i] = actionData[i]
+				}
 			}
 		}
 		

@@ -7,9 +7,12 @@ package GameModel
 	public class ActorBase 
 	{
 		
-		public function ActorBase() 
+		public function ActorBase(data:Object = null) 
 		{
-			
+			super();
+			for (var i:String in data){
+				this[i] = data[i]
+			}
 		}
 		
 		public var name:String;
