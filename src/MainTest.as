@@ -2,10 +2,14 @@ package
 {
 	import GameModel.ActionBase;
 	import GameModel.MapBase;
+	import GameModel.ObjItem;
 	import GameModel.RoomBase;
+	import System.ItemBag;
 	import Lib.ActionLib;
 	import Painter.PainterBrush;
+	import Painter.StageBoard;
 	import flash.events.Event;
+	import flash.utils.Dictionary;
 	
 	/**
 	 * ...
@@ -59,6 +63,43 @@ package
 		public function testItemBase():void
 		{
 			//...
+			var bag:ItemBag = new ItemBag();
+			bag.addItem(new ObjItem({name:"钱袋",brush:"button-action-money",actionList:[
+					{name: "吃掉",
+					action: function(content:Object = null):void
+					{
+						Main.Instance.debug(content.user.name+"使用了道具:"+content.useItem.name);
+					}},
+					{name: "投掷",
+					action: function(content:Object = null):void
+					{
+						Main.Instance.debug(content.user.name+"使用了道具:"+content.useItem.name);
+					}}]}))
+			bag.addItem(new ObjItem({name:"炸弹",brush:"button-action-money",actionList:[
+					{name: "吃掉",
+					action: function(content:Object = null):void
+					{
+						Main.Instance.debug(content.user.name+"使用了道具:"+content.useItem.name);
+					}},
+					{name: "投掷",
+					action: function(content:Object = null):void
+					{
+						Main.Instance.debug(content.user.name+"使用了道具:"+content.useItem.name);
+					}}]}))
+			bag.addItem(new ObjItem({name:"钱袋",brush:"button-action-money",actionList:[
+					{name: "吃掉",
+					action: function(content:Object = null):void
+					{
+						Main.Instance.debug(content.user.name+"使用了道具:"+content.useItem.name);
+					}},
+					{name: "投掷",
+					action: function(content:Object = null):void
+					{
+						Main.Instance.debug(content.user.name+"使用了道具:"+content.useItem.name);
+					}}]}))
+			trace("————————————————————————————————————————")
+			trace("Test Bag")
+			trace(bag.getTotalBag().join("|"));
 		}
 		
 		public function testItemLib():void{
@@ -67,8 +108,10 @@ package
 		
 		public function testRoomBase():void{
 			//...
-			PainterBrush.LoadBrush("pic/systemColl")
-			PainterBrush.LoadBrush("pic/stageOne", _testActionLoaded);
+			PainterBrush.LoadBrush("pic/systemColl");
+			PainterBrush.LoadPicAsBrush("pic/bg1");
+			PainterBrush.LoadPicAsBrush("pic/stageBoard",_testActionLoaded);
+			//PainterBrush.LoadBrush("pic/stageOne", _testActionLoaded);
 		}
 		
 		private function _testActionLoaded(e:Event):void{
@@ -76,14 +119,10 @@ package
 		}
 		
 		private function _testBrushLoaded(e:Event):void{
-			var stageRoom:StageBoard = new StageBoard();
+			var stageRoom:Painter.StageBoard = new Painter.StageBoard();
 			Main.Instance.addChild(stageRoom);
-			stageRoom.drawEnterRoom(new GameModel.RoomBase({name:"废弃城堡 - 岩石大厅", bg:"bg1", roomObjList:[
-			{name:"钱袋",brush:"button-action-money",actionList:[{name: "使用",
-					action: function(content:Object = null):void
-					{
-						Main.Instance.debug(content.user.name+"使用了道具:"+content.useItem.name);
-					}},
+			stageRoom.drawEnterRoom(new GameModel.RoomBase({name:"废弃城堡 - 岩石大厅", bg:"pic/bg1", roomObjList:[
+			{name:"钱袋",brush:"button-action-money",actionList:[
 					{name: "吃掉",
 					action: function(content:Object = null):void
 					{

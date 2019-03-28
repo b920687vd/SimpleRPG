@@ -14,7 +14,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'2018/5/13'</value>
+      <value>'2018/9/4'</value>
     </define>
     <define append="true">
       <name>CONFIG::air</name>
@@ -31,6 +31,7 @@
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
       <path-element>E:\GitHub\SimpleRPG\src</path-element>
+      <path-element>C:\Program Files\Adobe\Adobe Animate CC 2018\Common\Configuration\ActionScript 3.0\projects\Flash\src</path-element>
       <path-element>E:\FlashDevelop-5.3.3\Library\AS3\classes</path-element>
     </source-path>
   </compiler>

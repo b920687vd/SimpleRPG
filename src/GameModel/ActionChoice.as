@@ -1,5 +1,6 @@
 package GameModel 
 {
+	import System.LogicCenter;
 	import flash.display.DisplayObject;
 	import flash.display.SimpleButton;
 	import flash.events.MouseEvent;

@@ -42,6 +42,13 @@ package Painter
 			brushLoadedList[path] = new Array();
 		}
 		
+		public static function LoadPicAsBrush(path:String, callback:Function = null):void{
+			loadBrushFile(path+".png", "pic");
+			LoadedCallbackDict[path] = callback;
+			brushLoadedList[path] = new Array();
+			brushLoadedList[path].push({});
+		}
+		
 		/**
 		 * 加载单个笔刷文件
 		 * todo:可能会扩充或转移至文件管理功能模块
@@ -100,7 +107,7 @@ package Painter
 			loaded_arr.push(loaded_bmdata);
 			if (loaded_arr.length < 2)
 				return;
-			brushData(loaded_arr[1], loaded_arr[0]);
+			brushData(loaded_arr[1], loaded_arr[0],path);
 			if (LoadedCallbackDict[path])
 				LoadedCallbackDict[path](e);
 		}
@@ -131,9 +138,15 @@ package Painter
 		 * @param	bmdata
 		 * @param	config_data
 		 */
-		private static function brushData(bmdata:BitmapData, config_data:Object):void
+		private static function brushData(bmdata:BitmapData, config_data:Object,brushName:String = null):void
 		{
 			//Main.instance.addChild(new Bitmap(bmdata));
+			if (!config_data.list){
+				Main.Instance.debug("dataing " + JSON.stringify(config));
+				var bmArr:Vector.<BitmapData> = new Vector.<BitmapData>();
+				bmArr.push(bmdata);
+				Brush[brushName.concat("-0-0")] = bmArr;
+			}
 			var config_list:Array = config_data.list;
 			for each(var config:Object in config_list)
 			{
@@ -145,8 +158,6 @@ package Painter
 				{
 					bmClip.fillRect(bmClip.rect, 0x00000000);
 					bmClip.copyPixels(bmdata, new Rectangle(config.begin_x + i * config.box_width, config.begin_y, config.box_width, config.box_height), new Point(), null, null, true);
-					//bmClip.copyPixels(bmdata,new Rectangle(0,0,250,165),new Point(0,0),null,null,true);
-					//Main.instance.addChild(new Bitmap(bmClip.clone()));
 					bmArr.push(bmClip.clone());
 				}
 				Brush[config.source.concat("-", config.type, "-", config.status)] = bmArr;

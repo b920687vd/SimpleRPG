@@ -1,7 +1,7 @@
-package
+package Painter
 {
 	import GameModel.ActionBase;
-	import GameModel.LogicCenter;
+	import System.LogicCenter;
 	import GameModel.ActionChoice;
 	import GameModel.Event.ActionEvent;
 	import GameModel.Event.ObjEvent;
@@ -107,16 +107,26 @@ package
 		
 		public function drawEnterRoom(room:RoomBase):void{
 			//...
-			this.stageBg.bitmapData = PainterBrush.GetBrush("stageBoard","0","0")[0];
-			this.roomBg.bitmapData =  PainterBrush.GetBrush(room.bg, "0", "0")[0];
-			this.nameFiled.text = room.name;
-			this.numItemField.text = "0";
-			this.numLifeField.text = "0/0";
-			this.numMoneyField.text = "0";
-			this.numPeopleField.text = "0";
-			
+			drawBgUI(room)
 			if (room.roomObjList)
 				drawObjBtnList(room.roomObjList);
+		}
+		
+		public function drawBgUI(room:RoomBase){
+			this.stageBg.bitmapData = PainterBrush.GetBrush("pic/stageBoard","0","0")[0];
+			this.roomBg.bitmapData =  PainterBrush.GetBrush(room.bg, "0", "0")[0];
+			this.nameFiled.text = room.name;
+			this.numItemField.text = LogicCenter.Instance.gameNum.itemNum.toString();
+			this.numLifeField.text = LogicCenter.Instance.gameNum.life+"/"+LogicCenter.Instance.gameNum.maxLife;
+			this.numMoneyField.text = LogicCenter.Instance.gameNum.gold.toString();
+			this.numPeopleField.text = LogicCenter.Instance.gameNum.reputation.toString();
+		}
+		
+		public function updateUINum(){
+			this.numItemField.text = LogicCenter.Instance.gameNum.itemNum.toString();
+			this.numLifeField.text = LogicCenter.Instance.gameNum.life+"/"+LogicCenter.Instance.gameNum.maxLife;
+			this.numMoneyField.text = LogicCenter.Instance.gameNum.gold.toString();
+			this.numPeopleField.text = LogicCenter.Instance.gameNum.reputation.toString();
 		}
 		
 		public function drawObjBtnList(objList:Vector.<GameModel.ObjRoom>):void{
